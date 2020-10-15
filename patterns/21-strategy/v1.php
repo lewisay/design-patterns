@@ -1,71 +1,100 @@
 <?php
 
-abstract class Duck
+/**
+ * @author lewisay <lewisay@163.com>
+ */
+interface Comparable
 {
-    public function quack()
-    {
-        echo __METHOD__.PHP_EOL;
-    }
-
-    public function swim()
-    {
-        echo __METHOD__.PHP_EOL;
-    }
-
-    public function fly()
-    {
-        echo __METHOD__.PHP_EOL;
-    }
-
-    public abstract function display();
+    public function compareTo($object);
 }
 
-class WildDuck extends Duck
+class Person implements Comparable
 {
-    public function display()
-    {
-        echo __METHOD__.PHP_EOL;
-    }
-}
+    private $name;
+    private $age;
+    private $height;
 
-class PekingDuck extends Duck
-{
-    public function display()
+    public function __construct($name, $age, $height)
     {
-        echo __METHOD__.PHP_EOL;
+        $this->name = $name;
+        $this->age = $age;
+        $this->height = $height;
     }
 
-    public function fly()
+    public function compareTo($object)
     {
-        echo 'can\'t fly;'.__METHOD__.PHP_EOL;
+        return $this->age <=> $object->age;
+    }
+
+    // 两种比较方式无法并存
+    // public function compareTo($object)
+    // {
+    //     return $this->height <=> $object->height;
+    // }
+
+    public function __toString()
+    {
+        return implode(' & ', ['name:'.$this->name, 'age:'.$this->age, 'height:'.$this->height]);
     }
 }
 
-class ToyDuck extends Duck
+class Dog implements Comparable
 {
-    public function display()
+    private $name;
+    private $weight;
+
+    public function __construct($name, $weight)
     {
-        echo __METHOD__.PHP_EOL;
+        $this->name = $name;
+        $this->weight = $weight;
     }
 
-    public function quack()
+    public function compareTo($object)
     {
-        echo 'can\'t quack;'.PHP_EOL;
+        return $this->weight <=> $object->weight;
     }
 
-    public function swim()
+    public function __toString()
     {
-        echo 'can\'t swim;'.PHP_EOL;
-    }
-
-    public function fly()
-    {
-        echo 'can\'t fly;'.PHP_EOL;
+        return implode(' & ', ['name:'.$this->name, 'weight:'.$this->weight]);
     }
 }
 
-$t = new ToyDuck();
-$t->display();
-$t->quack();
-$t->swim();
-$t->fly();
+function selectionSort($comparables) {
+    $len = count($comparables);
+    $pos = null;
+
+    for ($i = 0; $i < $len - 1; $i++) {
+        $pos = $i;
+
+        for ($j = $i + 1; $j < $len; $j++) {
+            if ($comparables[$j]->compareTo($comparables[$pos]) > 0) {
+                $pos = $j;
+            }
+        }
+
+        $temp = $comparables[$i];
+        $comparables[$i] = $comparables[$pos];
+        $comparables[$pos] = $temp;
+    }
+
+    return $comparables;
+}
+
+$p1 = new Person('hello1', 40, 180);
+$p2 = new Person('hello2', 30, 181);
+$p3 = new Person('hello3', 20, 182);
+
+foreach (selectionSort([$p1, $p2, $p3]) as $ins) {
+    echo $ins.PHP_EOL;
+}
+
+echo str_repeat('-', 30).PHP_EOL;
+
+$d1 = new Dog('hello1', 2);
+$d2 = new Dog('hello2', 3);
+$d3 = new Dog('hello3', 4);
+
+foreach (selectionSort([$d1, $d2, $d3]) as $ins) {
+    echo $ins.PHP_EOL;
+}

@@ -1,100 +1,89 @@
 <?php
 
-interface FlyBehavior
+/**
+ * @author lewisay <lewisay@163.com>
+ */
+interface Comparator
 {
-    public function fly();
+    public function compare($object1, $object2);
 }
 
-interface QuackBehavior
+class Person
 {
-    public function quack();
-}
+    private $name;
+    private $age;
+    private $height;
 
-class NoFlyBehavior implements FlyBehavior
-{
-    public function fly()
+    public function __construct($name, $age, $height)
     {
-        echo __METHOD__.PHP_EOL;
+        $this->name = $name;
+        $this->age = $age;
+        $this->height = $height;
+    }
+
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    public function __toString()
+    {
+        return implode(' & ', ['name:'.$this->name, 'age:'.$this->age, 'height:'.$this->height]);
     }
 }
 
-class GoodFlyBehavior implements FlyBehavior
+class AgeStrategy implements Comparator
 {
-    public function fly()
+    public function compare($object1, $object2)
     {
-        echo __METHOD__.PHP_EOL;
+        return $object1->getAge() <=> $object2->getAge();
     }
 }
 
-class BadFlyBehavior implements FlyBehavior
+class HeightStrategy implements Comparator
 {
-    public function fly()
+    public function compare($object1, $object2)
     {
-        echo __METHOD__.PHP_EOL;
+        return $object1->getHeight() <=> $object2->getHeight();
     }
 }
 
-abstract class Duck
-{
-    protected $flyBehavior;
+function selectionSort($comparables, Comparator $comparator) {
+    $len = count($comparables);
+    $pos = null;
 
-    public function fly()
-    {
-        if ($this->flyBehavior) {
-            $this->flyBehavior->fly();
+    for ($i = 0; $i < $len - 1; $i++) {
+        $pos = $i;
+
+        for ($j = $i + 1; $j < $len; $j++) {
+            if ($comparator->compare($comparables[$j], $comparables[$pos]) > 0) {
+                $pos = $j;
+            }
         }
+
+        $temp = $comparables[$i];
+        $comparables[$i] = $comparables[$pos];
+        $comparables[$pos] = $temp;
     }
 
-    public abstract function display();
+    return $comparables;
 }
 
-class WildDuck extends Duck
-{
-    public function __construct()
-    {
-        $this->flyBehavior = new GoodFlyBehavior();
-    }
+$p1 = new Person('hello1', 40, 180);
+$p2 = new Person('hello2', 30, 181);
+$p3 = new Person('hello3', 20, 182);
 
-    public function display()
-    {
-        echo __METHOD__.PHP_EOL;
-    }
+foreach (selectionSort([$p1, $p2, $p3], new AgeStrategy()) as $ins) {
+    echo $ins.PHP_EOL;
 }
 
-class PekingDuck extends Duck
-{
-    public function __construct()
-    {
-        $this->flyBehavior = new NoFlyBehavior();
-    }
+echo str_repeat('-', 30).PHP_EOL;
 
-    public function display()
-    {
-        echo __METHOD__.PHP_EOL;
-    }
-
-    public function setFlyBehavior(FlyBehavior $behavior)
-    {
-        $this->flyBehavior = $behavior;
-    }
+foreach (selectionSort([$p1, $p2, $p3], new HeightStrategy()) as $ins) {
+    echo $ins.PHP_EOL;
 }
-
-class ToyDuck extends Duck
-{
-    public function __construct()
-    {
-        $this->flyBehavior = new NoFlyBehavior();
-    }
-
-    public function display()
-    {
-        echo __METHOD__.PHP_EOL;
-    }
-}
-
-$p = new PekingDuck();
-$p->display();
-$p->fly();
-
-$p->setFlyBehavior(new GoodFlyBehavior());
-$p->fly();
