@@ -9,9 +9,9 @@
 
 1994 年，艾瑞克·伽马（Erich Gamma）、理査德·海尔姆（Richard Helm）、拉尔夫·约翰森（Ralph Johnson）、约翰·威利斯迪斯（John Vlissides）4 位作者合作出版了《设计模式：可复用面向对象软件的基础》，这几位作者常被称为『四人组』，Gang of Four （GoF）。
 
-<img src="assets/design-patterns.jpg" alt="design-patterns" />
+<img src="assets/design-patterns.jpg" alt="design-patterns" width="400" />
 
-<img src="assets/gof.jpg" alt="Gang of Four" />
+<img src="assets/gof.jpg" alt="Gang of Four" width="400" />
 
 ## 什么是设计模式
 “每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动” ——Christopher Alexander。
@@ -19,3 +19,24 @@
 ## GoF设计模式
 历史性著作《设计模式：可复用面向对象软件的基础》一书中描述了23种经典面向对象设计模式，创立了模式在软件设计中的地位，由于《设计模式》一书确定了设计模式的地位，通常所说的设计模式隐含地表示"面向对象设计模式"。但这并不意味"设计模式"就等于"面向对象设计模式"。
 
+## 从面向对象谈起
+
+<img src="assets/oop.png" alt="oop" width="600" />
+
+### 底层思维
+
+向下，如何把握机器底层，从微观理解对象构造。
+
+- 语言构造
+- 编译转换
+- 内存模型
+- 运行时机制
+
+### 抽象思维
+
+向上，如何将我们周围的世界抽象为程序代码。
+
+- 面向对象
+- 组件封装
+- 设计模式
+- 架构模式
