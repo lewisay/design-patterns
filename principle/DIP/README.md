@@ -3,6 +3,7 @@
 ### 定义
 
 > High-level modules should not depend on low-level modules. Both should depend on abstractions (高层模块不应该依赖底层模块，二者都应该依赖抽象）。
+
 > Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions（抽象不应该依赖细节，细节应该依赖抽象）。
 
 ### 最佳实践

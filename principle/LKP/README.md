@@ -3,6 +3,7 @@
 ### 定义
 
 > Each unit should have only limited knowledge about other units: only units "closely" related to the current unit（每个单元对其他单元只拥有有限的知识，只了解与当前单元紧密联系的单元）。
+
 > Each unit should only talk to its friends; don't talk to strangers （每个单元只能和它的 "朋友" 交谈，不能和 "陌生人" 交谈）。
 > Only talk to your immediate friends（只和自己直接的 "朋友" 交谈）。
 
