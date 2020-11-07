@@ -55,7 +55,7 @@ class Wacom
      *
      * @var array<Shape>
      */
-    private $shaps;
+    private $shapes;
 
     // ...
 
@@ -65,9 +65,9 @@ class Wacom
         $this->p2->y = $mouseEvent->y;
 
         if ($this->drawShape == self::LINESHAPE) {
-            $this->shaps[] = new Line($this->p1, $this->p2);
+            $this->shapes[] = new Line($this->p1, $this->p2);
         } else if ($this->drawShape == self::RECTSHAPE) {
-            $this->shaps[] = new Rect($this->p1, $this->p2);
+            $this->shapes[] = new Rect($this->p1, $this->p2);
         }   // ...
 
         // ...
@@ -75,7 +75,7 @@ class Wacom
 
     public function OnPaint($paintEvent)
     {
-        foreach ($this->shaps as $shap) {
+        foreach ($this->shapes as $shape) {
             $shap->Draw($paintEvent);
         }
     }
