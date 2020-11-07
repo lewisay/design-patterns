@@ -66,7 +66,7 @@ class Rect
     }
 }
 
-// 圆形 (改变)
+// 圆形 (变化)
 class Circle
 {
     // ..
@@ -117,7 +117,7 @@ class Wacom
      */
     const LINESHAPE = 1;
     const RECTSHAPE = 2;
-    const CIRCLESHAPE = 3;    // 改变
+    const CIRCLESHAPE = 3;    // 变化
 
     /**
      * 鼠标按下
@@ -142,7 +142,7 @@ class Wacom
             $this->lines[] = new Line($this->p1, $this->p2);
         } else if ($this->drawShape == self::RECTSHAPE) {
             $this->rects[] = new Rect($this->p1, $this->p2);
-        }  else if ($this->drawShape == self::CIRCLESHAPE) {
+        }  else if ($this->drawShape == self::CIRCLESHAPE) {    // 变化
             // ...
         }
 
@@ -180,7 +180,7 @@ class Wacom
             );
         }
 
-        // 针对圆形(改变)
+        // 针对圆形(变化)
         foreach ($this->rects as $rect) {
             $width = abs($rect->end->x - $rect->start->x);
             $height = abs($rect->end->y - $rect->start->y);
